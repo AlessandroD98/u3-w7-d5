@@ -14,8 +14,29 @@ class MainPart extends Component {
         <div className="d-flex justify-content-between mt-3">
           <div className="d-flex px-5">
             <h2>TV Shows</h2>
-            <div>
-              <button>Genres</button>
+            <div className="dropdown ms-4 mt-1">
+              <button
+                className="btn btn-secondary btn-sm dropdown-toggle rounded-0"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                style={{ backgroundColor: "#221f1f" }}
+              >
+                Genres &nbsp;
+              </button>
+              <div className="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
+                <a className="dropdown-item text-white bg-dark" href="1">
+                  Comedy
+                </a>
+                <a className="dropdown-item text-white bg-dark" href="1">
+                  Drama
+                </a>
+                <a className="dropdown-item text-white bg-dark" href="1">
+                  Thriller
+                </a>
+              </div>
             </div>
           </div>
           <div className="px-5">
