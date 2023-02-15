@@ -48,10 +48,8 @@ class MainPart extends Component {
         <FirstGallery />
         <h4 className="px-5">Watch Again</h4>
         <SecondGallery />
-
         <h4 className="px-5">Anime</h4>
         <ThirdGallery />
-
         <Footer />
       </Container>
     );

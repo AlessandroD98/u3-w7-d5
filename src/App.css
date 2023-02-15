@@ -46,11 +46,15 @@ h4 {
   border-radius: 4px;
   color: white;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 .item:hover {
   scale: 1.2;
-  height: 180%;
-  width: 40%
+  height: 160%;
+  width: 40%;
+  z-index: 1;
 }
 
 .SliderButton {
@@ -82,4 +86,30 @@ img {
   height: 100%;
   width: 100%;
   /* aspect-ratio: 1/1; */
+}
+.DivForDeatails {
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.navbar {
+  z-index: 3;
+}
+.navbar-nav .nav-link.active, .navbar-nav .show>.nav-link {
+  font-weight: 600;
+}
+.ButtonForDeatails {
+  width: 100%;
+  background: linear-gradient(132deg, rgb(65, 80, 95) 0.00%, rgb(36, 37, 38) 100.00%);
+  color: white;
+  border: none;
+  border-top: 1px solid white;
+}
+.ContainerFilmDetails p{
+color: white;
+}
+.ContainerImgDetails{
+  width: 300px;
+  height: 444px;
 }

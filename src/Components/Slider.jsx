@@ -1,52 +1,71 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { SlArrowLeft } from "react-icons/sl";
 import { SlArrowRight } from "react-icons/sl";
+import { Link } from "react-router-dom";
 
-class Slider extends Component {
-  state = {
-    currentIndex: 0,
-  };
+const Slider = ({ Films }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [items, setItems] = useState([]);
 
-  componentDidMount() {
-    const { Films } = this.props;
-    if (!Films) return;
-    this.setState({ currentIndex: 0 });
-  }
+  useEffect(() => {
+    if (Films) {
+      setCurrentIndex(0);
+      setItems(Films.slice(0, 6).map((item) => ({ ...item, isShown: false })));
+    }
+  }, [Films]);
 
-  handleRightArrowClick = () => {
-    const { Films } = this.props;
-    const { currentIndex } = this.state;
+  const handleRightArrowClick = () => {
     if (currentIndex + 6 >= Films.length) return;
-    this.setState({ currentIndex: currentIndex + 6 });
+    setCurrentIndex(currentIndex + 6);
+    setItems(Films.slice(currentIndex + 6, currentIndex + 12).map((item) => ({ ...item, isShown: false })));
   };
 
-  handleLeftArrowClick = () => {
-    const { currentIndex } = this.state;
+  const handleLeftArrowClick = () => {
     if (currentIndex === 0) return;
-    this.setState({ currentIndex: currentIndex - 6 });
+    setCurrentIndex(currentIndex - 6);
+    setItems(Films.slice(currentIndex - 6, currentIndex).map((item) => ({ ...item, isShown: false })));
   };
 
-  render() {
-    const { Films } = this.props;
-    const { currentIndex } = this.state;
+  const handleMouseEnter = (index) => {
+    const newItems = [...items];
+    newItems[index].isShown = true;
+    setItems(newItems);
+  };
 
-    return (
-      <div className="SliderContainer">
-        <button className="SliderButton" onClick={this.handleLeftArrowClick}>
-          <SlArrowLeft className="SliderArrow" />
-        </button>
-        {Films &&
-          Films.slice(currentIndex, currentIndex + 6).map((item) => (
-            <div className="item" key={item.imdbID}>
-              <img src={item.Poster} alt="img" />
-            </div>
-          ))}
-        <button className="SliderButton" onClick={this.handleRightArrowClick}>
-          <SlArrowRight className="SliderArrow" />
-        </button>
-      </div>
-    );
-  }
-}
+  const handleMouseLeave = (index) => {
+    const newItems = [...items];
+    newItems[index].isShown = false;
+    setItems(newItems);
+  };
+
+  return (
+    <div className="SliderContainer">
+      <button className="SliderButton" onClick={handleLeftArrowClick}>
+        <SlArrowLeft className="SliderArrow" />
+      </button>
+      {items &&
+        items.map((item, index) => (
+          <div
+            className="item"
+            key={item.imdbID}
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={() => handleMouseLeave(index)}
+          >
+            <img src={item.Poster} alt="img" />
+            {item.isShown && (
+              <div className="DivForDeatails">
+                <Link to={"/moviedetailsm/" + item.imdbID}>
+                  <button className="ButtonForDeatails">More Info</button>
+                </Link>
+              </div>
+            )}
+          </div>
+        ))}
+      <button className="SliderButton" onClick={handleRightArrowClick}>
+        <SlArrowRight className="SliderArrow" />
+      </button>
+    </div>
+  );
+};
 
 export default Slider;
